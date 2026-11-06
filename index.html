@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Разбор сайта «Баракат»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sky: #22A3FE;
+  --blue: #2B66F0;
+  --deep: #1B31CA;
+  --night: #070B1F;
+  --ice: #EAF5FF;
+  --fog: #93A8D0;
+  --spark: #FFC83D;
+  --white: #FFFFFF;
+  --ink2: rgba(7, 11, 31, .68);
+  --line: rgba(7, 11, 31, .12);
+  --head: "Unbounded", "Manrope", system-ui, sans-serif;
+  --text: "Manrope", system-ui, sans-serif;
+  --spring: cubic-bezier(.34, 1.56, .64, 1);
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font: 400 16px/1.5 var(--text);
+  color: var(--night);
+  background-color: var(--blue);
+  background-image:
+    radial-gradient(rgba(255,255,255,.16) 1.5px, transparent 1.6px),
+    linear-gradient(135deg, var(--sky), var(--blue) 45%, var(--deep));
+  background-size: 22px 22px, 100% 100%;
+  background-attachment: fixed;
+}
+main { padding: 32px 16px 48px; }
+.slide {
+  position: relative;
+  max-width: 1080px;
+  margin: 0 auto 36px;
+  padding: clamp(22px, 4.5vw, 52px);
+  background: var(--white);
+  border: 3px solid var(--night);
+  border-radius: 28px;
+  box-shadow: 8px 8px 0 var(--night);
+  overflow: hidden;
+}
+.slide.dark { background: var(--night); color: var(--white); box-shadow: 8px 8px 0 var(--deep); }
+.num {
+  position: absolute; top: clamp(18px, 3vw, 30px); right: clamp(18px, 3vw, 34px);
+  font: 800 13px/1 var(--head); letter-spacing: .08em;
+  padding: 7px 11px; border: 2px solid currentColor; border-radius: 999px; opacity: .55;
+}
+.kicker { font: 800 13px/1.3 var(--text); letter-spacing: .12em; text-transform: uppercase; color: var(--blue); margin: 0 0 10px; padding-right: 64px; }
+.dark .kicker { color: var(--sky); }
+h1, h2 { font-family: var(--head); font-weight: 800; letter-spacing: -.01em; margin: 0 0 14px; padding-right: 56px; }
+h1 { font-size: clamp(30px, 6.4vw, 64px); line-height: 1.05; }
+h2 { font-size: clamp(24px, 4.4vw, 42px); line-height: 1.1; }
+h3 { font: 800 19px/1.25 var(--text); margin: 0 0 8px; }
+.lead { font-size: clamp(16px, 2.1vw, 20px); color: var(--ink2); margin: 0 0 26px; max-width: 760px; }
+.dark .lead { color: var(--fog); }
+.hero { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin: 28px 0 8px; }
+.hero b { font: 800 clamp(64px, 15vw, 150px)/.95 var(--head); color: var(--spark); letter-spacing: -.03em; }
+.hero span { font: 600 clamp(17px, 2.4vw, 22px)/1.35 var(--text); color: var(--white); max-width: 420px; }
+.minis { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-top: 30px; }
+.mini { border: 2px solid rgba(255,255,255,.22); border-radius: 18px; padding: 16px 18px; }
+.mini b { display: block; font: 800 clamp(24px, 3.6vw, 34px)/1.1 var(--head); color: var(--white); margin-bottom: 6px; }
+.mini span { color: var(--fog); font-size: 15px; }
+
+.bars { display: grid; gap: 14px; }
+.bar-row { display: grid; grid-template-columns: minmax(110px, 220px) 1fr; gap: 6px 16px; align-items: center; }
+.bar-label { font-weight: 800; font-size: clamp(15px, 1.9vw, 18px); }
+.bar-label small { display: block; font-weight: 400; font-size: 13px; color: var(--ink2); }
+.bar-track { position: relative; height: 44px; }
+.bar-fill { height: 100%; width: 0; min-width: 6px; background: var(--blue); border-radius: 0 10px 10px 0; transition: width 1.1s var(--spring); }
+.bar-val { position: absolute; top: 50%; transform: translateY(-50%); font: 800 clamp(16px, 2.2vw, 22px)/1 var(--head); white-space: nowrap; padding-left: 10px; transition: left 1.1s var(--spring); }
+.bar-row.hi .bar-fill { background: var(--deep); }
+.bar-row.lo .bar-fill { background: var(--fog); }
+@media (max-width: 560px) { .bar-row { grid-template-columns: 1fr; } .bar-track { height: 34px; margin-right: 96px; } }
+
+.note { margin-top: 24px; padding: 16px 18px; border-radius: 16px; background: var(--ice); border: 2px solid var(--night); font-size: clamp(15px, 1.8vw, 17px); }
+.note b { font-weight: 800; }
+.note.warn { background: #FFF6D9; }
+.dark .note { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.3); color: var(--white); }
+.grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.box { border: 2px solid var(--night); border-radius: 18px; padding: 18px; background: var(--white); }
+.box .sum { font-size: 14px; color: var(--ink2); margin: 0 0 14px; }
+.box.ice { background: var(--ice); }
+.stat { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.stat b { font: 800 clamp(30px, 4.6vw, 44px)/1 var(--head); color: var(--blue); }
+.stat span { color: var(--ink2); font-size: 15px; }
+
+/* доли: телефон и компьютер */
+.split { display: flex; height: 64px; border: 3px solid var(--night); border-radius: 18px; overflow: hidden; margin: 10px 0 14px; }
+.split div { display: flex; align-items: center; justify-content: center; font: 800 clamp(15px, 2.4vw, 22px)/1 var(--head); color: var(--white); white-space: nowrap; overflow: hidden; }
+.split .a { background: var(--blue); }
+.split .b { background: var(--night); }
+.split .c { background: var(--fog); color: var(--night); }
+.leg { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 14px; color: var(--ink2); }
+.leg i { display: inline-block; width: 14px; height: 14px; border-radius: 4px; margin-right: 6px; vertical-align: -2px; }
+
+/* столбики по месяцам */
+.cols-wrap { position: relative; }
+.cols { display: flex; align-items: flex-end; gap: 3px; height: 170px; padding-top: 22px; border-bottom: 2px solid var(--night); }
+.col { position: relative; flex: 1; height: 100%; display: flex; align-items: flex-end; cursor: pointer; }
+.col i { display: block; width: 100%; height: 0; background: var(--sky); border-radius: 4px 4px 0 0; transition: height .9s var(--spring); }
+.col.y2 i { background: var(--blue); }
+.col.peak i { background: var(--deep); }
+.col em { position: absolute; left: 50%; transform: translateX(-50%); bottom: calc(var(--h) + 4px); font: 800 11px/1 var(--text); font-style: normal; white-space: nowrap; color: var(--night); background: var(--white); padding: 2px 3px; border-radius: 4px; z-index: 1; }
+.col:hover i, .col.on i { outline: 2px solid var(--night); outline-offset: 1px; }
+.axis { display: flex; gap: 3px; margin-top: 6px; }
+.axis span { flex: 1; font-size: 10.5px; color: var(--ink2); text-align: center; white-space: nowrap; overflow: visible; }
+.legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--ink2); margin: 0 0 18px; }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 14px; height: 14px; border-radius: 4px; display: inline-block; }
+.tip { position: fixed; z-index: 10; pointer-events: none; opacity: 0; background: var(--night); color: var(--white); font: 600 14px/1.3 var(--text); padding: 8px 11px; border-radius: 10px; transform: translate(-50%, -110%); transition: opacity .15s; white-space: nowrap; }
+.tip.show { opacity: 1; }
+
+.phr { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+.phr li { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: baseline; font-size: 15px; padding-bottom: 7px; border-bottom: 1px dashed var(--line); }
+.phr li b { font: 800 15px/1 var(--head); color: var(--blue); }
+.phr li.x span { text-decoration: line-through; color: var(--ink2); }
+.phr li.x b { color: var(--fog); }
+
+.tbl-wrap { overflow-x: auto; margin: 0 -4px; padding: 0 4px; -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 560px; }
+th { text-align: left; font: 800 12px/1.2 var(--text); letter-spacing: .06em; text-transform: uppercase; color: var(--ink2); padding: 0 8px 10px; border-bottom: 2px solid var(--night); }
+th.r, td.r { text-align: right; }
+td { padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+td.kw { font-weight: 800; }
+td.kw small { display: block; font-weight: 400; font-size: 12.5px; color: var(--ink2); }
+td a { color: var(--blue); font-weight: 800; word-break: break-all; }
+.tag { display: inline-block; font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 999px; border: 2px solid var(--night); background: var(--ice); margin: 0 4px 4px 0; white-space: nowrap; }
+.tag.no { background: var(--white); color: var(--ink2); border-color: var(--fog); }
+.tag.yes { background: var(--spark); }
+
+.idx { display: grid; gap: 12px; }
+.idx-row { display: grid; grid-template-columns: minmax(110px, 200px) 1fr; gap: 6px 16px; align-items: center; }
+.idx-row .bar-label { font-size: 16px; }
+.idx-track { position: relative; height: 40px; background: var(--ice); border-radius: 10px; }
+.idx-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: var(--blue); border-radius: 10px; transition: width 1.1s var(--spring); }
+.idx-row.hi .idx-fill { background: var(--deep); }
+.idx-avg { position: absolute; top: -6px; bottom: -6px; width: 3px; background: var(--night); border-radius: 2px; }
+.idx-val { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font: 800 18px/1 var(--head); }
+@media (max-width: 560px) { .idx-row { grid-template-columns: 1fr; } }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; }
+.card { border: 2px solid var(--night); border-radius: 20px; padding: 20px; background: var(--white); display: flex; flex-direction: column; gap: 10px; }
+.card.top { background: var(--ice); }
+.card .meta { font-size: 14px; color: var(--ink2); }
+.card ul { margin: 0; padding-left: 18px; font-size: 15px; display: grid; gap: 4px; }
+.card .plus b { color: var(--blue); }
+.card .minus b { color: #B4232F; }
+.score { display: flex; align-items: center; gap: 10px; }
+.score .dots { display: flex; gap: 4px; }
+.score .dots i { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--night); background: var(--white); }
+.score .dots i.on { background: var(--blue); }
+.score span { font: 800 14px/1 var(--head); }
+
+/* расчёт */
+.calc { display: grid; gap: 18px; }
+.ctrl { display: grid; grid-template-columns: minmax(150px, 260px) 1fr; gap: 8px 16px; align-items: center; }
+.ctrl label { font-weight: 800; font-size: 16px; }
+.ctrl label small { display: block; font-weight: 400; color: var(--ink2); font-size: 13px; }
+.seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.seg button { min-width: 64px; min-height: 48px; padding: 0 14px; font: 800 16px/1 var(--head); color: var(--night); background: var(--white); border: 2px solid var(--night); border-radius: 14px; cursor: pointer; }
+.seg button.on { background: var(--blue); color: var(--white); }
+.seg button:focus-visible { outline: 3px solid var(--spark); outline-offset: 2px; }
+@media (max-width: 560px) { .ctrl { grid-template-columns: 1fr; } }
+.res { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 6px; }
+.res .box b { display: block; font: 800 clamp(28px, 4.4vw, 40px)/1.05 var(--head); color: var(--blue); margin-bottom: 6px; }
+.res .box.main { background: var(--night); color: var(--white); }
+.res .box.main b { color: var(--spark); }
+.res .box.main span { color: var(--fog); }
+.scen { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+.scen .box b { display: block; font: 800 clamp(26px, 4vw, 36px)/1.05 var(--head); color: var(--blue); margin: 6px 0; }
+
+.out { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; }
+.out li { border: 2px solid var(--night); border-radius: 18px; padding: 18px 18px 18px 64px; position: relative; background: var(--white); font-size: 16px; }
+.out li::before { content: attr(data-n); position: absolute; left: 16px; top: 16px; width: 34px; height: 34px; border-radius: 50%; background: var(--blue); color: var(--white); display: grid; place-items: center; font: 800 15px/1 var(--head); }
+.out li b { display: block; font-size: 17px; margin-bottom: 4px; }
+.how { margin: 0; padding-left: 20px; display: grid; gap: 8px; font-size: 16px; }
+.how a, .note a { color: var(--blue); font-weight: 800; word-break: break-word; }
+footer { text-align: center; color: rgba(255,255,255,.85); font-size: 13px; padding: 4px 16px 0; }
+
+.slide { opacity: 0; transform: translateY(26px) scale(.985); transition: opacity .5s ease, transform .8s var(--spring); }
+.slide.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .slide, .bar-fill, .bar-val, .col i, .idx-fill { transition: none !important; }
+  .slide { opacity: 1; transform: none; }
+}
+</style>
+<style>
+.path { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; counter-reset: st; }
+.path li { counter-increment: st; position: relative; padding: 12px 14px 12px 54px; border: 2px solid var(--night); border-radius: 14px; background: var(--white); font-size: 16px; }
+.path li::before { content: counter(st); position: absolute; left: 12px; top: 10px; width: 30px; height: 30px; border-radius: 50%; background: var(--fog); color: var(--night); display: grid; place-items: center; font: 800 14px/1 var(--head); }
+.path.good li::before { background: var(--blue); color: var(--white); }
+.path li.bad { background: #FFF6D9; }
+.chk { font: 800 18px/1 var(--head); }
+.chk.y { color: var(--blue); }
+.chk.n { color: #B4232F; }
+.chk.h { color: var(--ink2); font-size: 15px; }
+.pill { display: inline-block; font-weight: 800; font-size: 13px; padding: 3px 10px; border-radius: 999px; border: 2px solid var(--night); margin-right: 6px; }
+.pill.now { background: var(--spark); }
+.pill.month { background: var(--ice); }
+.src { font-size: 13px; color: var(--ink2); margin-top: 10px; }
+.big { font: 800 clamp(48px, 10vw, 96px)/1 var(--head); color: var(--blue); }
+</style>
+</head>
+<body>
+<main id="deck"></main>
+<footer>Разбор сайта vodabarakat.ru · проверено 6 ноября 2026</footer>
+
+<script>
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"})[c]);
+let slideNo = 0;
+function slide(html, cls = "") {
+  slideNo++;
+  return `<section class="slide ${cls}"><span class="num">${String(slideNo).padStart(2, "0")}</span>${html}</section>`;
+}
+function bars(items, scale = 80) {
+  const max = Math.max(...items.map(i => i.value));
+  return `<div class="bars">${items.map(i => `
+    <div class="bar-row ${i.hi ? "hi" : ""} ${i.lo ? "lo" : ""}">
+      <div class="bar-label">${esc(i.label)}${i.sub ? `<small>${esc(i.sub)}</small>` : ""}</div>
+      <div class="bar-track"><div class="bar-fill" data-w="${(i.value / max * scale).toFixed(2)}"></div><span class="bar-val" data-w="${(i.value / max * scale).toFixed(2)}" style="left:0">${i.text}</span></div>
+    </div>`).join("")}</div>`;
+}
+const Y = '<span class="chk y">да</span>', N = '<span class="chk n">нет</span>';
+const S = [];
+
+// 1. Обложка
+S.push(slide(`
+  <p class="kicker">Разбор сайта · ноябрь 2026</p>
+  <h1>Сайт «Бараката»: что работает и что мешает заказу</h1>
+  <p class="lead">vodabarakat.ru. Мы прошли сайт как покупатель на телефоне и на компьютере, замерили скорость, проверили поиск, карты и сравнили с соседями по рынку.</p>
+  <div class="hero"><b>0</b><span>кнопок «Заказать» у товаров: заказать можно только звонком или в мессенджере</span></div>
+  <div class="minis">
+    <div class="mini"><b>4,9</b><span>на Яндекс Картах, 82 оценки: лучший результат среди служб доставки воды в Грозном</span></div>
+    <div class="mini"><b>2-е</b><span>место в Яндексе по «доставка воды грозный»</span></div>
+    <div class="mini"><b>30 сек.</b><span>грузится главный экран на телефоне с мобильным интернетом</span></div>
+  </div>`, "dark"));
+
+// 2. Что уже есть
+S.push(slide(`
+  <p class="kicker">Что уже есть у компании</p>
+  <h2>Каналы «Бараката» в интернете</h2>
+  <p class="lead">Где покупатель может найти компанию сейчас.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Канал</th><th>Что там</th><th>Состояние</th></tr></thead>
+    <tbody>
+      <tr><td class="kw">Сайт vodabarakat.ru</td><td>Конструктор Megagroup, 6 видов воды 19 л, вода 0,5, 1 и 5 л, 11 кулеров, помпы, аксессуары. Яндекс Метрика и учёт звонков.</td><td>Работает. Нет заказа с сайта, часть страниц пустые</td></tr>
+      <tr><td class="kw">Яндекс Карты</td><td>4,9, 82 оценки, 35 отзывов. Часы пн-сб 9:00-18:00, цены, фото.</td><td>Сильная карточка. Цены отличаются от сайта</td></tr>
+      <tr><td class="kw">Google Карты</td><td>4,9, 52 оценки, адрес ул. Карла Маркса 8.</td><td>Категория «Доставка готовой еды» вместо воды</td></tr>
+      <tr><td class="kw">2ГИС</td><td>5,0, 5 оценок, филиал в Аргуне.</td><td>Старый адрес ул. Титова 59а</td></tr>
+      <tr><td class="kw">Instagram @voda_barakat</td><td>«Артезианская вода, бесплатная доставка, заказ через WhatsApp».</td><td>С сайта ссылки нет</td></tr>
+      <tr><td class="kw">WhatsApp и Telegram</td><td>Один номер для звонка и мессенджеров.</td><td>На сайте спрятаны в кнопку вверху</td></tr>
+      <tr><td class="kw">Сайт от Яндекса</td><td>barakat-ulitsa-umara-kadyrova.clients.site: Яндекс собрал его сам из карточки.</td><td>Спорит с основным сайтом в поиске</td></tr>
+      <tr><td class="kw">Справочники</td><td>Zoon, Plaso, Cityorg, Uslugio, Spravker.</td><td>Разные адреса</td></tr>
+    </tbody>
+  </table></div>
+  <p class="src">Instagram в России заблокирован, компания Meta признана экстремистской. Мы отмечаем его только как факт.</p>`));
+
+// 3. Сильное
+S.push(slide(`
+  <p class="kicker">Сильные стороны</p>
+  <h2>На чём «Баракат» уже выигрывает</h2>
+  <ol class="out">
+    <li data-n="1"><b>Свои марки воды</b>Шесть видов воды 19 л под своими именами: «Баракат», «Баракат+», «Горный родник», «Снежинка», «Зам Зам Баракат». Остальные компании Грозного возят одни и те же привозные бренды.</li>
+    <li data-n="2"><b>Доверие на картах</b>4,9 и 82 оценки на Яндекс Картах: больше всех среди служб доставки воды в Грозном. В отзывах хвалят вкус, быструю доставку и вежливых курьеров.</li>
+    <li data-n="3"><b>Благое дело</b>Часть денег с каждой продажи идёт в благотворительный фонд «Хайра». Видео раздачи воды в 2025 и 2026 годах. Это редкое и сильное отличие.</li>
+    <li data-n="4"><b>Экспресс-доставка</b>Доставка по Грозному за 30 минут за доплату. У соседей по рынку мы такого не нашли.</li>
+    <li data-n="5"><b>Видео</b>Видеоотзывы клиентов, видео новостей и акций. Живые лица продают лучше текста.</li>
+    <li data-n="6"><b>Основа для поиска</b>Заголовки и описания страниц написаны, есть карта сайта и Яндекс Метрика. Google оценивает поисковую основу на 100 из 100.</li>
+  </ol>`));
+
+// 4. Путь заказа
+S.push(slide(`
+  <p class="kicker">Главное</p>
+  <h2>Как покупатель заказывает воду сейчас</h2>
+  <p class="lead">Мы прошли путь на телефоне шириной 375 точек: так видит сайт большинство покупателей.</p>
+  <div class="grid3">
+    <div class="box"><h3>Сейчас</h3><ol class="path">
+      <li>Открывает сайт. На первом экране горы и заголовок, кнопки заказа нет.</li>
+      <li>Листает вниз до цен воды 19 л: это третий экран.</li>
+      <li class="bad">Нажимает на карточку воды: ничего не происходит.</li>
+      <li class="bad">Ищет, как заказать. Кнопки «Заказать» нет ни у одного товара.</li>
+      <li>Возвращается наверх, находит зелёную кнопку, в ней телефон и мелкие значки WhatsApp и Telegram.</li>
+      <li class="bad">Пишет в WhatsApp с пустым сообщением и сам объясняет, что хочет.</li>
+    </ol></div>
+    <div class="box ice"><h3>Как удобно</h3><ol class="path good">
+      <li>Видит цену и кнопку «Заказать в WhatsApp» сразу на карточке воды.</li>
+      <li>Нажимает: WhatsApp открывается с готовым текстом «Хочу заказать Баракат 19 л, 2 бутыли, адрес: ...».</li>
+    </ol>
+    <p class="sum" style="margin:14px 0 0">Кнопка связи закреплена внизу экрана и видна при прокрутке. Значки не меньше 44 точек под палец.</p></div>
+  </div>
+  <div class="note"><b>Что мы нашли в коде.</b> Формы заказа на сайте есть, но они скрыты: их видят поисковики, а люди нет. Значит, заказ с сайта задуман, но не включён.</div>`));
+
+// 5. Скорость
+S.push(slide(`
+  <p class="kicker">Скорость</p>
+  <h2>Сайт тяжёлый для телефона</h2>
+  <p class="lead">Замер Google PageSpeed 6 ноября 2026. Телефон с медленным мобильным интернетом.</p>
+  ${bars([
+    {label: "Телефон", sub: "оценка скорости из 100", value: 48, text: "48 из 100", hi: true},
+    {label: "Компьютер", sub: "оценка скорости из 100", value: 53, text: "53 из 100"},
+    {label: "Хорошо", sub: "зелёная зона Google", value: 90, text: "90 и выше", lo: true}
+  ])}
+  <div class="grid3" style="margin-top:22px">
+    <div class="box"><div class="stat"><b>29,8 сек.</b></div><p class="sum" style="margin:6px 0 0">до появления главной картинки на телефоне. Норма Google: до 2,5 сек.</p></div>
+    <div class="box"><div class="stat"><b>6,3 МБ</b></div><p class="sum" style="margin:6px 0 0">весит главная страница. Из них 3,3 МБ можно убрать, если ужать картинки.</p></div>
+    <div class="box"><div class="stat"><b>4×</b></div><p class="sum" style="margin:6px 0 0">картинка бутыли больше, чем нужно: 1 200 точек в окне 305 точек.</p></div>
+  </div>
+  <div class="note">Медленный сайт теряет покупателя: человек с телефона не ждёт полминуты и уходит к соседу. Google и Яндекс тоже опускают медленные сайты. <a href="https://pagespeed.web.dev/analysis/https-vodabarakat-ru/xg973xciuf?form_factor=mobile" target="_blank" rel="noopener">Полный отчёт PageSpeed</a>.</div>`));
+
+// 6. Пустые страницы
+S.push(slide(`
+  <p class="kicker">Наполнение</p>
+  <h2>Страницы без слов</h2>
+  <p class="lead">Поисковик читает текст. Видео и картинки без подписей для него почти пустые.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Страница</th><th>Что на ней</th><th>Что видит поисковик</th></tr></thead>
+    <tbody>
+      <tr><td class="kw">Сервис и услуги</td><td>Только заголовок</td><td>Пустую страницу</td></tr>
+      <tr><td class="kw">Советы клиентам</td><td>Только заголовок</td><td>Пустую страницу</td></tr>
+      <tr><td class="kw">Отзывы наших клиентов</td><td>Видеоотзывы</td><td>Заголовок без отзывов</td></tr>
+      <tr><td class="kw">Новости</td><td>6 видео</td><td>Заголовок без новостей</td></tr>
+      <tr><td class="kw">Акции</td><td>Видео раздачи воды</td><td>Заголовок без акций</td></tr>
+      <tr><td class="kw">Сертификаты</td><td>Картинки писем и сертификата</td><td>Картинки без подписей</td></tr>
+      <tr><td class="kw">Кулеры</td><td>11 моделей</td><td>Обещание «продажа и аренда», но об аренде на сайте ни слова</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note">Пустые страницы лучше заполнить или убрать из меню. Под каждым видео достаточно двух-трёх строк: кто, о чём, когда. Отзывы клиентов стоит продублировать текстом: так их прочитает и поисковик, и человек без звука.</div>`));
+
+// 7. Условия
+S.push(slide(`
+  <p class="kicker">Условия</p>
+  <h2>На что покупатель не находит ответ</h2>
+  <p class="lead">Перед первым заказом человек хочет знать условия. На сайте их нет.</p>
+  <div class="grid3">
+    <div class="box"><h3>Доставка</h3><p class="sum" style="margin:0">Бесплатно или платно, от скольки бутылей, по каким районам, за какое время. В Instagram написано «бесплатная доставка», на сайте нет.</p></div>
+    <div class="box"><h3>Бутыль</h3><p class="sum" style="margin:0">Есть ли залог, сколько стоит новая бутыль, как обменять пустую.</p></div>
+    <div class="box"><h3>Часы и оплата</h3><p class="sum" style="margin:0">На Яндекс Картах пн-сб 9:00-18:00, на сайте часов нет. Как платить: наличные, карта, перевод.</p></div>
+    <div class="box"><h3>Офисам</h3><p class="sum" style="margin:0">Главный текст сайта обращён к офисам, но нет договора, счёта, графика доставки.</p></div>
+    <div class="box"><h3>Аренда кулера</h3><p class="sum" style="margin:0">Обещана в описании страницы, условий нет.</p></div>
+    <div class="box"><h3>Реквизиты</h3><p class="sum" style="margin:0">Нет ИНН и ОГРН. Они дают доверие и нужны, если продавать через сайт по правилам дистанционной торговли.</p></div>
+  </div>
+  <div class="note">Для сравнения: Mainspring пишет на сайте цену, заказ от 2 бутылей, «без залога при обмене», районы Грозного и работу по договору с ООО и ИП. «Родники Кавказа» пишут «бесплатная доставка по всему Грозному».</div>`));
+
+// 8. Цены и адреса
+S.push(slide(`
+  <p class="kicker">Одинаково везде</p>
+  <h2>Цены и адреса расходятся</h2>
+  <p class="lead">Покупатель сравнивает сайт и карты. Разные цифры вызывают вопросы.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Вода 19 л</th><th class="r">Сайт</th><th class="r">Яндекс Карты</th></tr></thead>
+    <tbody>
+      <tr><td class="kw">Баракат</td><td class="r"><b>320 ₽</b></td><td class="r"><b>300 ₽</b></td></tr>
+      <tr><td class="kw">Баракат+</td><td class="r"><b>340 ₽</b></td><td class="r"><b>320 ₽</b></td></tr>
+      <tr><td class="kw">Талая «Снежинка»</td><td class="r"><b>360 ₽</b></td><td class="r"><b>340 ₽</b></td></tr>
+    </tbody>
+  </table></div>
+  <div class="tbl-wrap" style="margin-top:18px"><table>
+    <thead><tr><th>Где</th><th>Адрес</th></tr></thead>
+    <tbody>
+      <tr><td class="kw">Сайт, Яндекс Карты</td><td>ул. Умара Кадырова, 8</td></tr>
+      <tr><td class="kw">Google Карты, Plaso</td><td>ул. Карла Маркса, 8</td></tr>
+      <tr><td class="kw">2ГИС, Cityorg, Zoon</td><td>ул. Титова, 59а</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note">Что поправить: одни цены на сайте и картах; один адрес во всех справочниках; в Google Картах категорию «Доставка готовой еды» сменить на «Доставка воды»; в 2ГИС новый адрес. На сайте цены подписаны по-разному: «р.» и «руб.», лучше везде «₽».</div>`));
+
+// 9. Поиск
+S.push(slide(`
+  <p class="kicker">Поиск</p>
+  <h2>Что видят Яндекс и Google</h2>
+  <div class="grid3">
+    <div class="box"><div class="stat"><b>2-е</b><span>место в Яндексе</span></div><p class="sum" style="margin:6px 0 0">по «доставка воды грозный». В Google 8-е.</p></div>
+    <div class="box"><div class="stat"><b>35</b><span>страниц в Яндексе</span></div><p class="sum" style="margin:6px 0 0">Яндекс показывает сайт как магазин с оценкой 4,8 (33 отзыва).</p></div>
+    <div class="box"><div class="stat"><b>~10</b><span>страниц в Google</span></div><p class="sum" style="margin:6px 0 0">Google знает главные разделы и несколько товаров.</p></div>
+  </div>
+  <div class="tbl-wrap" style="margin-top:22px"><table>
+    <thead><tr><th>Проверка</th><th class="r">Есть</th><th>Что это даёт</th></tr></thead>
+    <tbody>
+      <tr><td class="kw">Заголовок и описание страниц</td><td class="r">${Y}</td><td>Текст сниппета в поиске</td></tr>
+      <tr><td class="kw">Карта сайта и robots.txt</td><td class="r">${Y}</td><td>Поисковик находит страницы</td></tr>
+      <tr><td class="kw">Подзаголовки H2</td><td class="r">${N}</td><td>Поисковик понимает разделы страницы</td></tr>
+      <tr><td class="kw">Разметка «организация» и «товар»</td><td class="r">${N}</td><td>Цена, рейтинг и адрес прямо в выдаче</td></tr>
+      <tr><td class="kw">Картинка для ссылки</td><td class="r">${N}</td><td>При пересылке ссылки в WhatsApp видна красивая карточка</td></tr>
+      <tr><td class="kw">Подписи картинок</td><td class="r"><span class="chk h">коды</span></td><td>Сейчас подписи вида «9fd499d9c1f20204c». Нужны слова: «Вода Баракат 19 литров»</td></tr>
+      <tr><td class="kw">Своя страница под каждый запрос</td><td class="r">${N}</td><td>«Вода в офис», «аренда кулера», «доставка воды Аргун»</td></tr>
+    </tbody>
+  </table></div>`));
+
+// 10. Тексты и доверие
+S.push(slide(`
+  <p class="kicker">Тексты</p>
+  <h2>Обещания, которые стоит подтвердить</h2>
+  <div class="grid3">
+    <div class="box"><h3>Цифры</h3><p class="sum" style="margin:0">«4 тысячи клиентов» и «больше 10 лет на рынке». Рядом подпись сайта «2024-2026». Лучше показать год основания и откуда цифра клиентов.</p></div>
+    <div class="box"><h3>Качество воды</h3><p class="sum" style="margin:0">«Многоступенчатая фильтрация», «вода высшей категории». Не сказано, откуда вода и где её разливают. Mainspring выкладывает протокол проверки воды. Сертификаты «Бараката» стоит подписать и показать на главной.</p></div>
+    <div class="box"><h3>Бутыли</h3><p class="sum" style="margin:0">В отзыве на Яндекс Картах клиент пишет, что бутыли 19 л сильно изношены. Обновление тары и ответ на такой отзыв поднимут доверие.</p></div>
+  </div>
+  <div class="note warn"><b>Осторожно с обещанием лечения.</b> У воды 19 л, 1 л и 5 л написано «Для лечения от сглаза и колдовства». Закон о рекламе (38-ФЗ, статья 5) запрещает приписывать лечебные свойства товару, который не лекарство. Спокойнее написать без слова «лечение», например «вода, над которой прочитан Коран». Это наблюдение, а не юридическая консультация.</div>`));
+
+// 11. Сравнение
+S.push(slide(`
+  <p class="kicker">Соседи по рынку</p>
+  <h2>Сайт «Бараката» и сайты конкурентов</h2>
+  <p class="lead">Что есть на сайтах служб доставки воды Грозного. Проверено 6 ноября 2026.</p>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Что есть на сайте</th><th class="r">Баракат</th><th class="r">Mainspring</th><th class="r">Родники Кавказа</th><th class="r">Aqua Grozny</th></tr></thead>
+    <tbody>
+      <tr><td class="kw">Цены на воду</td><td class="r">${Y}</td><td class="r">${Y}</td><td class="r">${Y}</td><td class="r">${Y}</td></tr>
+      <tr><td class="kw">Заказ с сайта</td><td class="r">${N}</td><td class="r"><span class="chk h">форма с суммой</span></td><td class="r"><span class="chk h">корзина</span></td><td class="r"><span class="chk h">форма и чат</span></td></tr>
+      <tr><td class="kw">Условия доставки</td><td class="r">${N}</td><td class="r">${Y}</td><td class="r">${Y}</td><td class="r">${N}</td></tr>
+      <tr><td class="kw">Залог за бутыль</td><td class="r">${N}</td><td class="r">${Y}</td><td class="r"><span class="chk h">цена бутыли</span></td><td class="r"><span class="chk h">цена бутыли</span></td></tr>
+      <tr><td class="kw">Страница для офисов</td><td class="r">${N}</td><td class="r">${Y}</td><td class="r">${N}</td><td class="r">${N}</td></tr>
+      <tr><td class="kw">Частые вопросы</td><td class="r">${N}</td><td class="r">${Y}</td><td class="r">${N}</td><td class="r">${N}</td></tr>
+      <tr><td class="kw">Проверка качества воды</td><td class="r"><span class="chk h">картинки</span></td><td class="r"><span class="chk h">протокол</span></td><td class="r">${N}</td><td class="r">${N}</td></tr>
+      <tr><td class="kw">Свои марки воды</td><td class="r">${Y}</td><td class="r">${Y}</td><td class="r">${N}</td><td class="r">${N}</td></tr>
+      <tr><td class="kw">Благотворительность</td><td class="r">${Y}</td><td class="r">${N}</td><td class="r">${N}</td><td class="r">${N}</td></tr>
+      <tr><td class="kw">Экспресс за 30 минут</td><td class="r">${Y}</td><td class="r">${N}</td><td class="r">${N}</td><td class="r">${N}</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><b>Вывод.</b> У «Бараката» самое сильное предложение: свои марки, благое дело, экспресс-доставка, лучшие оценки на картах. Но сайт хуже всех помогает сделать заказ. Если включить заказ и написать условия, сайт станет лучшим на рынке Грозного.</div>`));
+
+// 12. Что сделать
+S.push(slide(`
+  <p class="kicker">План</p>
+  <h2>Что сделать в первую очередь</h2>
+  <p class="lead"><span class="pill now">неделя</span> быстро и даёт заказы сразу. <span class="pill month">месяц</span> поднимает сайт в поиске и доверие.</p>
+  <ol class="out">
+    <li data-n="1"><b><span class="pill now">неделя</span>Кнопка «Заказать в WhatsApp»</b>У каждого товара и закреплённая внизу экрана на телефоне. С готовым текстом: название воды, количество, адрес.</li>
+    <li data-n="2"><b><span class="pill now">неделя</span>Условия на главной</b>Доставка, бутыль и залог, часы работы, оплата. Одним блоком из 4-5 строк.</li>
+    <li data-n="3"><b><span class="pill now">неделя</span>Одни цены и адрес везде</b>Сайт, Яндекс Карты, Google Карты, 2ГИС. В Google сменить категорию на «Доставка воды».</li>
+    <li data-n="4"><b><span class="pill now">неделя</span>Убрать пустые страницы из меню</b>«Сервис и услуги», «Советы клиентам» заполнить или скрыть. Добавить ссылку на Instagram.</li>
+    <li data-n="5"><b><span class="pill month">месяц</span>Ужать картинки</b>Минус 3,3 МБ на главной. Сайт на телефоне станет в несколько раз быстрее.</li>
+    <li data-n="6"><b><span class="pill month">месяц</span>Слова под видео и отзывы текстом</b>Чтобы поисковик видел отзывы, новости и акции.</li>
+    <li data-n="7"><b><span class="pill month">месяц</span>Страницы под запросы</b>«Вода в офис» с договором и счётом, «Аренда кулера», «Доставка воды в Аргуне», частые вопросы.</li>
+    <li data-n="8"><b><span class="pill month">месяц</span>Доверие</b>Откуда вода и где её разливают, подписанные сертификаты, протокол проверки, спокойная формулировка вместо «лечения».</li>
+    <li data-n="9"><b><span class="pill month">месяц</span>Поисковая разметка</b>Разметка «организация» и «товар», картинка для пересылки ссылки, подписи картинок словами.</li>
+  </ol>`));
+
+// 13. Как проверяли
+S.push(slide(`
+  <p class="kicker">Источники</p>
+  <h2>Как проверяли</h2>
+  <ul class="how">
+    <li><b>Сайт:</b> все разделы vodabarakat.ru, телефон 375 точек и компьютер 1366 точек, 6 ноября 2026. Формы мы не отправляли.</li>
+    <li><b>Скорость:</b> <a href="https://pagespeed.web.dev/analysis/https-vodabarakat-ru/xg973xciuf?form_factor=mobile" target="_blank" rel="noopener">Google PageSpeed Insights</a>, 6 ноября 2026, 15:39.</li>
+    <li><b>Поиск:</b> Яндекс и Google, запросы «доставка воды грозный», «вода 19 литров грозный», «site:vodabarakat.ru».</li>
+    <li><b>Карты:</b> Яндекс Карты, Google Карты, 2ГИС.</li>
+    <li><b>Конкуренты:</b> сайты mainspringwater.ru, rodnikikavkaza24.ru, aquagrozny.ru.</li>
+  </ul>
+  <div class="note warn"><b>Что не проверено.</b> Число подписчиков Instagram: Instagram без входа не показывает. Статистика сайта в Яндекс Метрике и Вебмастере: нужен доступ владельца. Как быстро отвечают в WhatsApp: мы не писали компании. Места в поиске меняются, это снимок одного дня.</div>
+  <div class="note">Общий анализ рынка доставки воды в Грозном и Чечне: <a href="https://xasi88.github.io/voda-groznyj/" target="_blank" rel="noopener">xasi88.github.io/voda-groznyj</a>.</div>`));
+
+document.getElementById("deck").innerHTML = S.join("");
+function grow2(el) {
+  el.querySelectorAll(".bar-fill").forEach(b => b.style.width = b.dataset.w + "%");
+  el.querySelectorAll(".bar-val").forEach(b => b.style.left = b.dataset.w + "%");
+}
+if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add("in"); grow2(e.target); io.unobserve(e.target); }
+  }), {threshold: .08});
+  document.querySelectorAll(".slide").forEach(s => io.observe(s));
+} else {
+  document.querySelectorAll(".slide").forEach(s => { s.classList.add("in"); grow2(s); });
+}
+</script>
+</body>
+</html>
